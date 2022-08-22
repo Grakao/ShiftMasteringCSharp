@@ -35,7 +35,6 @@ namespace Exercicio04
             }
 
             //Soma dos vetores 1 e 2
-            //Junção dos vetores 1 e 2 no vetor3
             for (int i = 0, j = 0; i < vetor1.Length; i++)
             {
                 vetor3[i] = vetor1[i] + vetor2[i];
