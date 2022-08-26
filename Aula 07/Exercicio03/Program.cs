@@ -15,14 +15,18 @@ namespace Exercicio03
             //-Juvenil B = 14 a 17 anos
             //-Adultos = Maiores de 18 anos
             
-            Console.WriteLine("*** Exercício 03 - Solicitar e exibir a idade de um nadador de acordo com a categoria ***");         
+            Console.WriteLine("*** Exercício 03 - Solicitar e exibir a idade de um nadador de acordo com a categoria ***");
+            
+            int idade;
 
-            void ClassificarIdade(int idade)
+            Console.WriteLine("Digite a idade do(a) nadador(a):");
+            ClassificarIdade();
+
+            void ClassificarIdade()
             {
-                string categoria;
-
-                Console.WriteLine("Digite a idade do(a) nadador(a):");
                 idade = Convert.ToInt32(Console.ReadLine());
+
+                string categoria = string.Empty;
 
                 if (idade >= 5 && idade <= 7)
                 {
@@ -46,13 +50,12 @@ namespace Exercicio03
                 }
                 else
                 {
-                    Console.WriteLine("Categoria inválida");
+                    Console.WriteLine("Idade inapropriada.");
+                    return;
                 }
 
-                Console.WriteLine("A categoria do(a) nadador(a) é: " + categoria);
-            }
-
-            
+                Console.WriteLine("A categoria do(a) nadador(a) é: " + categoria.ToString());
+            }       
         }
     }
 }
