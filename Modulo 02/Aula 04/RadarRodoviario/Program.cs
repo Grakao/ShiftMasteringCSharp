@@ -6,8 +6,6 @@ namespace RadarRodoviario
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-
             Radar radar = new Radar();
 
             Console.WriteLine("Informe a frequência do carro: ");
@@ -21,9 +19,12 @@ namespace RadarRodoviario
 
             if (radar.VelocidadeCarro > radar.VelocidadeLimite)
             {
-                Console.WriteLine("Valor da Multa: " + radar.CalcularMulta().ToString());
+                Console.WriteLine("Infração de trânsito. Valor da multa: R$ " + radar.CalcularMulta().ToString());
             }
-            Console.WriteLine();
+            else
+            {
+                Console.WriteLine("Velocidade do veículo dentro do limite esperado.");
+            }
         }
     }
 }
