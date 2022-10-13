@@ -1,0 +1,4 @@
+https://en.bem.info/methodology/quick-start/
+https://meyerweb.com/eric/tools/css/reset/
+https://fonts.google.com/
+https://necolas.github.io/normalize.css/

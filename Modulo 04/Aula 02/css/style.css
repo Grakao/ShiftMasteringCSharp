@@ -1,0 +1,46 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* retirando os marcadores da lista */
+ul, ol {
+    list-style: none;
+}
+
+/* retirando sublinhado do link e mudando sua cor */
+a {
+    text-decoration: none;
+    color: white;
+}
+
+/* Formatando o header-page */
+.header-page {
+    background-color: #000;
+    width: 100%;
+    height: 100px;
+    display: flex; /* Sem isso a formatação dos textos não fica horizontal e de nada adianta as definições abaixo de flex-dir e align */
+    flex-direction: row;
+    align-items: center; /* alinhamento vertical */
+    justify-content: space-between; /* alinhamento horizontal */
+    padding: 0 20px;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.header-title {
+    color: #fff;
+    font-size: 35px;
+}
+
+.header-menu ul {
+    display: flex;
+}
+
+.header-menu li {
+    margin: 0 10px;
+}
