@@ -1,0 +1,9 @@
+Flexbox - propriedades para alinhamento de conteúdo
+Aplicar no container PAI ==> FLEX CONTAINER
+Filhos serão convertidos em Flex Items
+Aplica propriedades apenas aos filhos diretos 
+Quando o pai vira um flex-container VÁRIAS PROPRIEDADES
+SÃO APLICADAS AUTOMATICAMENTE(CUIDADO)
+
+flex-direction: row; - direção padrão
+align-items: center; Alinhamento vertical com row

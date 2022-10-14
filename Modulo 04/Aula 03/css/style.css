@@ -1,0 +1,183 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Variáveis Globais */
+:root {
+    --color-light: #fff;
+    --color-dark: #222;
+    --color-fiap: #dc143c;
+}
+
+/* retirando os marcadores da lista */
+ul,
+ol {
+    list-style: none;
+}
+
+/* retirando sublinhado do link e mudando sua cor */
+a {
+    text-decoration: none;
+    color: var(--color-light);
+    font-weight: 700;
+    transition: .5s
+}
+
+a:hover {
+    color: var(--color-fiap);
+}
+
+/* Formatando o header-page */
+.header-page {
+    width: 100%;
+    height: 100px;
+    display: flex;
+
+    /* Sem isso a formatação dos textos não fica horizontal e de nada adianta as definições abaixo de align e justify */
+    flex-direction: row;
+
+    /* alinhamento vertical */
+    align-items: center;
+
+    /* alinhamento horizontal */
+    justify-content: space-between;
+
+    padding: 0 20px;
+    position: absolute;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.header-title {
+    color: var(--color-light);
+    font-size: 35px;
+}
+
+.logo-pink {
+    color: var(--color-fiap);
+}
+
+.header-menu ul {
+    display: flex;
+}
+
+.header-menu li {
+    margin: 0 10px;
+}
+
+/********************************** hero ********************************/
+.hero {
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, .8), rgba(0, 0, 0, 0)), url(../images/pexels-felix-mittermeier-957002.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-title {
+    color: var(--color-light);
+    font-size: 8vmin;
+    text-align: center;
+    margin: 40px 0;
+}
+
+.hero-subtitle {
+    color: var(--color-light);
+    font-size: 5vmin;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.btn {
+    border: 3px solid var(--color-fiap);
+    background-color: var(--color-fiap);
+    padding: 10px 25px;
+    border-radius: 70px;
+    transition: 0.5s;
+}
+
+.btn-small {
+    padding: 5px 20px;
+    border-width: 2px;
+}
+
+.btn:hover {
+    background-color: transparent;
+}
+
+/********************************** fim hero ********************************/
+
+/********************************** tour ********************************/
+.tour {
+    width: 100%;
+    margin: 50px 0;
+    text-align: center;
+}
+
+.tour-title {
+    font-size: 5vmin;
+    color: var(--color-dark);
+}
+
+.tour-list {
+    width: 90%;
+    min-height: 100vh;
+    margin: 40px auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.tour-item {
+    width: 40%;
+    margin: 40px 20px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 1px 1px 30px #ccc;
+    border-radius: 7px;
+    transition: .5s;
+}
+
+.tour-item:hover {
+    transform: scale(1.1);
+}
+
+.tour-item img {
+    width: 80%;
+    border-radius: 7px;
+}
+
+.tour-item h3 {
+    margin: 10px 0;
+}
+
+.tour-item p {
+    width: 80%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/********************************** fim tour ********************************/
+
+/* Pensando no Responsivo */
+/* media queries = tamanho de uma media - definir como ficará nessas telas */
+
+@media(max-width:800px) {
+    .tour-item {
+        width: 80%;
+    }
+}
