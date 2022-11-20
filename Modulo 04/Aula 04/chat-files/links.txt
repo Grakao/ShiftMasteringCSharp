@@ -1,0 +1,14 @@
+https://getbootstrap.com/
+https://necolas.github.io/normalize.css/
+https://m2.material.io/design
+https://tailwindcss.com/
+https://get.foundation/
+
+https://getbootstrap.com/docs/5.2/utilities/spacing/#notation
+https://getbootstrap.com/docs/5.2/content/typography/#global-settings
+https://getbootstrap.com/docs/5.2/components/buttons/#examples
+https://getbootstrap.com/docs/5.2/components/breadcrumb/#example
+https://getbootstrap.com/docs/5.2/content/images/#responsive-images
+https://getbootstrap.com/docs/5.2/utilities/borders/#border
+https://getbootstrap.com/docs/5.2/components/card/#about
+https://getbootstrap.com/docs/5.2/layout/grid/#example

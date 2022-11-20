@@ -1,0 +1,10 @@
+https://getbootstrap.com/docs/5.2/forms/select/#default
+https://getbootstrap.com/docs/5.2/utilities/flex/#enable-flex-behaviors
+https://getbootstrap.com/docs/5.2/utilities/flex/
+https://getbootstrap.com/docs/5.2/components/navbar
+https://getbootstrap.com/docs/5.2/content/tables/#overview
+https://getbootstrap.com/docs/5.2/helpers/ratio/#about
+
+--Icones
+https://icons.getbootstrap.com/
+https://fontawesome.com/

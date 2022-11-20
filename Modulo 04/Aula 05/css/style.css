@@ -1,0 +1,12 @@
+:root {
+    --blue: rgb(18, 18, 49);
+}
+
+.bg-blue {
+    background-color: var(--blue);
+}
+
+textarea {
+    resize: none;
+    height: 150px;
+}

@@ -1,0 +1,7 @@
+:root {
+    --blue: rgb(18, 18, 49);
+}
+
+.bg-blue {
+    background-color: var(--blue);
+}
