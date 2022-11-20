@@ -1,0 +1,4 @@
+https://javascript.info/structure
+https://github.com/braziljs/eloquente-javascript
+https://javascriptpatterns.vercel.app/patterns
+https://developer.mozilla.org/pt-BR/docs/Web/JavaScript
