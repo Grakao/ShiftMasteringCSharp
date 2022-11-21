@@ -1,0 +1,141 @@
+-------------------------------------------------------------------------
+-- EXERCÍCIOS DML (INSERT)
+-------------------------------------------------------------------------
+DROP TABLE CIENTISTA PURGE;
+DROP TABLE CLIENTE PURGE;
+
+-- EXERCÍCIO 1
+CREATE TABLE CIENTISTA
+(CODIGO  INT         CONSTRAINT CIENTISTA_PK PRIMARY KEY,
+ NOME    VARCHAR(50) NOT NULL,
+ DT_NASC DATE,
+ SEXO    CHAR(1) CONSTRAINT CIENTIISTA_SEXO_CK CHECK (SEXO IN ('F','M')));
+
+DESC CIENTISTA; 
+-- EXERCÍCIO 2
+INSERT INTO CIENTISTA (CODIGO,NOME,DT_NASC,SEXO)
+VALUES (1010,'STEPHEN HAWKING','08/01/1942','M');
+
+INSERT INTO CIENTISTA (CODIGO,NOME,DT_NASC,SEXO)
+VALUES (1011,'ALBERT EINSTEIN','14/03/1879','M');
+
+INSERT INTO CIENTISTA 
+VALUES (1012,'ISAAC NEWTON','04/01/1643','M');
+
+INSERT INTO CIENTISTA 
+VALUES (1013,'GALILEU GALILEI','15/02/1564','M');
+
+INSERT INTO CIENTISTA 
+VALUES (1014,'NICOLAU COPERNICO','19/02/1473','M');
+
+COMMIT;
+
+SELECT * FROM CIENTISTA;
+
+-------------------------------------------------------------------------
+-- EXERCÍCIO DESAFIO (INSERT)
+-------------------------------------------------------------------------
+-- EXERCÍCIO 1
+CREATE TABLE CLIENTE
+(CODIGO  INT         CONSTRAINT CLIENTE_PK PRIMARY KEY,
+ NOME    VARCHAR(50) NOT NULL);
+
+DESC CLIENTE;
+-- EXERCÍCIO 2
+INSERT INTO CLIENTE
+SELECT CODIGO,NOME FROM CIENTISTA;
+
+COMMIT;
+
+SELECT * FROM CLIENTE;
+
+
+-------------------------------------------------------------------------
+-- EXERCÍCIOS DML (UPDATE)
+-------------------------------------------------------------------------
+-- EXERCÍCIO 1
+ALTER TABLE CIENTISTA
+ADD DT_OBITO DATE;
+
+-- EXERCÍCIO 2
+UPDATE CIENTISTA
+SET DT_OBITO = '14/03/2018'
+WHERE CODIGO = 1010;
+
+UPDATE CIENTISTA
+SET DT_OBITO = '18/04/1955'
+WHERE CODIGO = 1011;
+
+UPDATE CIENTISTA
+SET DT_OBITO = '31/03/1727'
+WHERE CODIGO = 1012;
+
+UPDATE CIENTISTA
+SET DT_OBITO = '08/01/1642'
+WHERE CODIGO = 1013;
+
+UPDATE CIENTISTA
+SET DT_OBITO = '24/05/1543'
+WHERE CODIGO = 1014;
+
+-- EXERCÍCIO 3
+UPDATE CIENTISTA
+SET NOME = 'EINSTEIN'
+WHERE CODIGO = 1011;
+
+UPDATE CIENTISTA
+SET NOME = 'NEWTON'
+WHERE CODIGO = 1012;
+
+COMMIT;
+
+SELECT * FROM CIENTISTA;
+
+-------------------------------------------------------------------------
+-- EXERCÍCIO DESAFIO (UPDATE)
+-------------------------------------------------------------------------
+-- EXERCÍCIO 1
+ALTER TABLE CLIENTE 
+ADD DT_NASC DATE;
+
+DESC CLIENTE;
+
+-- EXERCÍCIO 2
+UPDATE CLIENTE CL
+SET    CL.DT_NASC = (SELECT CI.DT_NASC 
+                     FROM   CIENTISTA CI
+                     WHERE  CI.DT_NASC = CL.DT_NASC);
+
+COMMIT;
+
+-------------------------------------------------------------------------
+-- EXERCÍCIOS DML (DELETE)
+-------------------------------------------------------------------------
+-- EXERCÍCIO 1
+DELETE FROM CIENTISTA
+WHERE TO_CHAR(DT_NASC,'MM') = '02';
+
+-- ou
+
+DELETE FROM CIENTISTA
+WHERE EXTRACT(month from dt_nasc) ='02';
+
+-- ATENÇÃO: NAO UTILIZE ESSA FORMA A SEGUIR SENÃO DIAS QUE INICIAM COM 02 
+--          E ANO QUE TERMINAM COM 02 SERÃO REMOVIDOS
+
+DELETE FROM CIENTISTA
+WHERE DT_NASC LIKE'%/02/%';
+
+-- DICA: PARA TODA INSTRUÇÃO DE DELELEÇÃO, ANTES DE DELETAR TRANFORME A 
+--       A INSTRUÇÃO PARA UMA SELEÇÃO.
+
+SELECT * FROM CIENTISTA
+WHERE DT_NASC LIKE'%/02/%';
+
+-------------------------------------------------------------------------
+-- EXERCÍCIO DESAFIO (DELETE)
+-------------------------------------------------------------------------
+-- EXERCÍCIO 1
+DELETE FROM CLIENTE
+WHERE CODIGO NOT IN (SELECT CODIGO 
+                             FROM CIENTISTA);
