@@ -15,7 +15,7 @@ namespace Fiap.Web.AspNet4.Models
 		public string NomeRepresentante { get; set; }
 
 		[NotMapped]
-		public string Token { get; set; }
+		public string? Token { get; set; }
 
 		public RepresentanteModel()
 		{

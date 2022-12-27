@@ -3,6 +3,7 @@ using Fiap.Web.AspNet4.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fiap.Web.AspNet4.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20221227194939_Fornecedores2")]
+    partial class Fornecedores2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,7 +51,7 @@ namespace Fiap.Web.AspNet4.Migrations
 
                     b.HasKey("FornecedorId");
 
-                    b.ToTable("Fornecedor");
+                    b.ToTable("Fornecedores");
                 });
 
             modelBuilder.Entity("Fiap.Web.AspNet4.Models.RepresentanteModel", b =>
