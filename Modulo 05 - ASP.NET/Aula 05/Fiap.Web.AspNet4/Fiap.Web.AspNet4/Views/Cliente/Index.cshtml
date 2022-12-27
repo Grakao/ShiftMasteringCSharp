@@ -1,0 +1,18 @@
+﻿@model IList<ClienteModel>
+
+@{
+}
+
+<h1>Clientes</h1>
+
+@if (! String.IsNullOrEmpty ( (String) TempData["Mensagem"]) )
+{
+	<div class="alert alert-warning" role="alert">@TempData["Mensagem"]</div>
+}
+
+<p class="toolbar">
+	<a class="create btn btn-dark" asp-controller="Cliente" asp-action="Novo">Novo Cliente</a>
+</p>
+
+@*Partial View - Implementação*@
+<partial name="_ClienteItem" model="Model" />
