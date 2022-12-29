@@ -15,7 +15,12 @@ namespace Fiap.Web.AspNet4.Repository
 
         public List<ClienteModel> FindAll()
         {
-            return dataContext.Clientes.ToList<ClienteModel>();
+            //return dataContext.Clientes.ToList<ClienteModel>();
+
+            return dataContext
+                .Clientes // SELECT * FROM CLIENTES
+                .Include(r => r.Representante) // INNER JOIN
+                .ToList<ClienteModel>();
         }
 
         public ClienteModel FindById(int id)
@@ -26,14 +31,13 @@ namespace Fiap.Web.AspNet4.Repository
                 .Include(r => r.Representante) // INNER JOIN
                 .SingleOrDefault(c => c.ClienteId == id); // Where
 
-            dataContext
-                .Clientes // * from
-                .Find(id); // Where
+            //dataContext
+            //    .Clientes // select * from clientes
+            //    .Find(id); // Where id = parametro do método
 
-            dataContext
-                .Clientes
-                .SingleOrDefault(c => c.Observacao == null)
-
+            //dataContext
+            //    .Clientes // select * from clientes
+            //    .SingleOrDefault(c => c.Observacao == null); // where observacao is null
 
             return clienteModel;
         }
