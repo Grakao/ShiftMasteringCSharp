@@ -122,8 +122,6 @@ namespace Fiap.Web.AspNet4.Controllers
 
 			var fornecedorModel = fornecedorRepository.FindById(id);
 
-			fornecedorRepository.Update(fornecedorModel);
-
 			if (fornecedorModel == null)
 			{
 				return NotFound();

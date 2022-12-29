@@ -7,34 +7,35 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Fiap.Web.AspNet4.Data;
 using Fiap.Web.AspNet4.Models;
+using Fiap.Web.AspNet4.Repository;
 
 namespace Fiap.Web.AspNet4.Controllers
 {
 	public class RepresentanteController : Controller
 	{
-		private readonly DataContext _context;
+        private readonly RepresentanteRepository representanteRepository;
 
-		public RepresentanteController(DataContext context)
-		{
-			_context = context;
-		}
+        public RepresentanteController(DataContext context)
+        {
+            representanteRepository = new RepresentanteRepository(context);
+        }
 
-		// GET: RepresentanteModel
-		public async Task<IActionResult> Index()
+        // GET: RepresentanteModel
+        public IActionResult Index()
 		{
-			return View(await _context.Representantes.ToListAsync());
+			return View(representanteRepository.FindAll());
 		}
 
 		// GET: RepresentanteModel/Details/5
-		public async Task<IActionResult> Details(int? id)
+		public IActionResult Details(int id)
 		{
-			if (id == null || _context.Representantes == null)
+			if (id == null)
 			{
 				return NotFound();
 			}
 
-			var representanteModel = await _context.Representantes
-				.FirstOrDefaultAsync(m => m.RepresentanteId == id);
+			var representanteModel = representanteRepository.FindById(id);
+
 			if (representanteModel == null)
 			{
 				return NotFound();
@@ -54,26 +55,27 @@ namespace Fiap.Web.AspNet4.Controllers
 		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create([Bind("RepresentanteId,NomeRepresentante")] RepresentanteModel representanteModel)
+		public IActionResult Create([Bind("RepresentanteId,NomeRepresentante")] RepresentanteModel representanteModel)
 		{
 			if (ModelState.IsValid)
 			{
-				_context.Add(representanteModel);
-				await _context.SaveChangesAsync();
+				representanteRepository.Insert(representanteModel);
 				return RedirectToAction(nameof(Index));
 			}
 			return View(representanteModel);
 		}
 
 		// GET: RepresentanteModel/Edit/5
-		public async Task<IActionResult> Edit(int? id)
+		public IActionResult Edit(int id)
 		{
-			if (id == null || _context.Representantes == null)
+			if (id == null)
 			{
 				return NotFound();
 			}
 
-			var representanteModel = await _context.Representantes.FindAsync(id);
+			var representanteModel = representanteRepository.FindById(id);
+			representanteRepository.Update(representanteModel);
+
 			if (representanteModel == null)
 			{
 				return NotFound();
@@ -86,7 +88,7 @@ namespace Fiap.Web.AspNet4.Controllers
 		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Edit(int id, [Bind("RepresentanteId,NomeRepresentante")] RepresentanteModel representanteModel)
+		public IActionResult Edit(int id, [Bind("RepresentanteId,NomeRepresentante")] RepresentanteModel representanteModel)
 		{
 			if (id != representanteModel.RepresentanteId)
 			{
@@ -97,19 +99,11 @@ namespace Fiap.Web.AspNet4.Controllers
 			{
 				try
 				{
-					_context.Update(representanteModel);
-					await _context.SaveChangesAsync();
-				}
+                    representanteRepository.Update(representanteModel);
+                }
 				catch (DbUpdateConcurrencyException)
 				{
-					if (!RepresentanteModelExists(representanteModel.RepresentanteId))
-					{
-						return NotFound();
-					}
-					else
-					{
-						throw;
-					}
+					throw;
 				}
 				return RedirectToAction(nameof(Index));
 			}
@@ -117,15 +111,15 @@ namespace Fiap.Web.AspNet4.Controllers
 		}
 
 		// GET: RepresentanteModel/Delete/5
-		public async Task<IActionResult> Delete(int? id)
+		public IActionResult Delete(int id)
 		{
-			if (id == null || _context.Representantes == null)
+			if (id == null)
 			{
 				return NotFound();
 			}
 
-			var representanteModel = await _context.Representantes
-				.FirstOrDefaultAsync(m => m.RepresentanteId == id);
+			var representanteModel = representanteRepository.FindById(id);
+
 			if (representanteModel == null)
 			{
 				return NotFound();
@@ -137,25 +131,10 @@ namespace Fiap.Web.AspNet4.Controllers
 		// POST: RepresentanteModel/Delete/5
 		[HttpPost, ActionName("Delete")]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> DeleteConfirmed(int id)
+		public IActionResult DeleteConfirmed(int id)
 		{
-			if (_context.Representantes == null)
-			{
-				return Problem("Entity set 'DataContext.Representantes'  is null.");
-			}
-			var representanteModel = await _context.Representantes.FindAsync(id);
-			if (representanteModel != null)
-			{
-				_context.Representantes.Remove(representanteModel);
-			}
-
-			await _context.SaveChangesAsync();
+			representanteRepository.Delete(id);
 			return RedirectToAction(nameof(Index));
-		}
-
-		private bool RepresentanteModelExists(int id)
-		{
-			return _context.Representantes.Any(e => e.RepresentanteId == id);
-		}
+		}	
 	}
 }

@@ -33,7 +33,33 @@
                         <label class="control-label" asp-for="DataNascimento"></label>    
                         <input class="form-control col-5" asp-for="DataNascimento" />
                         <span class="text-danger" asp-validation-for="DataNascimento"></span>
-                    </div>                  
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label" asp-for="RepresentanteId"></label>
+                        <select asp-for="RepresentanteId" asp-items="@ViewBag.Representantes">
+                            <option value="">Selecione</option>
+                        </select>
+                        
+                        @*<select name="RepresentanteId" id="RepresentanteId">
+                            <option value="">Selecione</option>
+                            @if (ViewBag.Representantes != null)
+                            {
+                                foreach (var item in ViewBag.Representantes)
+                                {
+                                    if (item.RepresentanteId == Model.RepresentanteId)
+                                    {
+                                        <option value="@item.RepresentanteId" selected>@item.NomeRepresentante</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.RepresentanteId">@item.NomeRepresentante</option>
+                                    }                                 
+                                }
+                            }
+                        </select>*@
+                        <span class="text-danger" asp-validation-for="RepresentanteId"></span>
+                    </div>
 
                     <div class="form-group">          
                         <label class="control-label" asp-for="Observacao"></label>        

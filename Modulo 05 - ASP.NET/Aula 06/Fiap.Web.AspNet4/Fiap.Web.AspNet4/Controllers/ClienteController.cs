@@ -2,17 +2,20 @@
 using Fiap.Web.AspNet4.Models;
 using Fiap.Web.AspNet4.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Fiap.Web.AspNet4.Controllers
 {
 	public class ClienteController : Controller
 	{
 		private readonly ClienteRepository clienteRepository;
+		private readonly RepresentanteRepository representanteRepository;
 
 		public ClienteController(DataContext dataContext)
 		{
 			clienteRepository = new ClienteRepository(dataContext);
-		}
+			representanteRepository = new RepresentanteRepository(dataContext);
+        }
 
 		[HttpGet]
 		public IActionResult Index()
@@ -24,21 +27,20 @@ namespace Fiap.Web.AspNet4.Controllers
 		[HttpGet]
 		public IActionResult Novo()
 		{
-			var clienteModel = new ClienteModel();
-			return View(clienteModel);
+			var listaRepresentantes = representanteRepository.FindAll();
+			ViewBag.Representantes = listaRepresentantes;
+
+            return View(new ClienteModel());
 			//return Content("Fiap ASP.NET 4");
 			//return RedirectToAction("Index");
 		}
 
 		[HttpPost]
 		public IActionResult Novo(ClienteModel clienteModel)
-		{
-			Console.WriteLine(clienteModel.Nome);
-			Console.WriteLine(clienteModel.Sobrenome);
-
-			// ClasseBancoDeDados.Insert (nome, sobrenome);		
+		{	
 			if (ModelState.IsValid)
 			{
+				clienteRepository.Insert(clienteModel);
 				TempData["Mensagem"] = "Cliente cadastrado com sucesso!";
 
 				//return View("Sucesso");
@@ -46,81 +48,57 @@ namespace Fiap.Web.AspNet4.Controllers
 			}
 			else
 			{
-				return View(clienteModel);
+                var listaRepresentantes = representanteRepository.FindAll();
+                ViewBag.Representantes = listaRepresentantes;
+
+                return View(clienteModel);
 			}
 		}
 
 		[HttpGet]
 		public IActionResult Editar(int id)
 		{
-			// var cliente = SELECT ... FROM CLIENTE WHERE ID = {id}; 
+            ComboRepresentantes();
+            //Forma 1
+            //var listaRepresentantes = representanteRepository.FindAll();
+            //var selectListRepresentantes = new SelectList(listaRepresentantes, "RepresentanteId", "NomeRepresentante");
+            //ViewBag.Representantes = selectListRepresentantes;
 
-			var clienteModel = new ClienteModel();
-			if (id == 1)
-			{
-				clienteModel = new ClienteModel
-				{
-					ClienteId = 1,
-					Nome = "Flavio",
-					Email = "fmoreni@gmail.com",
-					DataNascimento = DateTime.Now,
-					Observacao = "OBS1"
-				};
-			}
-			else if (id == 2)
-			{
-				clienteModel = new ClienteModel
-				{
-					ClienteId = 2,
-					Nome = "Eduardo",
-					Email = "eduardo@gmail.com",
-					DataNascimento = DateTime.Now,
-					Observacao = "OBS3"
-				};
-			}
-			else
-			{
-				clienteModel = new ClienteModel
-				{
-					ClienteId = 3,
-					Nome = "Moreni",
-					Email = "moreni@gmail.com",
-					DataNascimento = DateTime.Now,
-					Observacao = "OBS3"
-				};
-			}
-			return View(clienteModel);
+            //Forma 2
+            //ViewBag.Representantes = new SelectList(representanteRepository.FindAll(), "RepresentanteId", "NomeRepresentante");
+
+            var clienteModel = clienteRepository.FindById(id);
+
+            //var listaRepresentantes = representanteRepository.FindAll();
+            //ViewBag.Representantes = listaRepresentantes;
+
+            return View(clienteModel);
 		}
 
 		[HttpPost]
 		public IActionResult Editar(ClienteModel clienteModel)
 		{
-			// Validação de campos no Controller usando if/else recuperando dados da model
-			//if (String.IsNullOrEmpty(clienteModel.Nome) || String.IsNullOrEmpty(clienteModel.Email))
-			//{
-			//    TempData["Mensagem"] = "O nome do cliente ou o e-mail não pode ser nulo!";
-			//    return View(clienteModel);
-			//    //return RedirectToAction("Editar", new { id = clienteModel.ClienteId });
-			//}
-			//else
-			//{
-			//    // UPDATE TABELA ... VALUES ...
-			//    TempData["Mensagem"] = "Cliente alterado com sucesso!";
-			//    return RedirectToAction("Index");
-			//}
-
 			if (ModelState.IsValid)
 			{
-				// UPDATE TABELA ... VALUES ...
+				clienteRepository.Update(clienteModel);
+
 				TempData["Mensagem"] = "Cliente alterado com sucesso!";
 				return RedirectToAction("Index");
 			}
 			else
 			{
-				return View(clienteModel);
+                ComboRepresentantes();
+
+                // Forma 1
+                //var listaRepresentantes = representanteRepository.FindAll();
+                //var selectListRepresentantes = new SelectList(listaRepresentantes, "RepresentanteId", "NomeRepresentante");
+                //ViewBag.Representantes = selectListRepresentantes;
+
+                // Forma 2
+                //ViewBag.Representantes = new SelectList(representanteRepository.FindAll(), "RepresentanteId", "NomeRepresentante");
+
+                return View(clienteModel);
 			}
-
-
 		}
 
 		[HttpGet]
@@ -137,5 +115,12 @@ namespace Fiap.Web.AspNet4.Controllers
 			var clienteModel = clienteRepository.FindById(id);
 			return View(clienteModel);
 		}
-	}
+
+        private void ComboRepresentantes()
+        {
+            var listaRepresentantes = representanteRepository.FindAll();
+            var selectListRepresentantes = new SelectList(listaRepresentantes, "RepresentanteId", "NomeRepresentante");
+            ViewBag.representantes = selectListRepresentantes;
+        }
+    }
 }

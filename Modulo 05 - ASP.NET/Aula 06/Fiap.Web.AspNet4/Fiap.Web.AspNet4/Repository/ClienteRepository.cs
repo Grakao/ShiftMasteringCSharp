@@ -20,6 +20,7 @@ namespace Fiap.Web.AspNet4.Repository
             return dataContext
                 .Clientes // SELECT * FROM CLIENTES
                 .Include(r => r.Representante) // INNER JOIN
+                .OrderBy(c => c.Nome)
                 .ToList<ClienteModel>();
         }
 

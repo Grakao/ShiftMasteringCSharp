@@ -38,6 +38,6 @@ namespace Fiap.Web.AspNet4.Models
 		public int RepresentanteId { get; set; }
 		// Navigation Object
 		[ForeignKey("RepresentanteId")]
-		public RepresentanteModel Representante { get; set; }
+		public RepresentanteModel? Representante { get; set; }
 	}
 }
