@@ -20,17 +20,30 @@ namespace Fiap.Web.AspNet4.Controllers
 		[HttpGet]
 		public IActionResult Index()
 		{
-			var listaClientes = clienteRepository.FindAll();
-			return View(listaClientes);
+			//var listaClientes = clienteRepository.FindAllOrderByNomeDesc();
+			//var listaClientes = clienteRepository.FindByNome("na");
+			//var listaClientes = clienteRepository.FindByNomeAndEmail("na","@gmail.com");
+			//var listaClientes = clienteRepository.FindByNomeAndEmailAndRep("na", "@gmail.com",0);
+			//var listaClientes = clienteRepository.FindByNomeAndEmailAndRep("", null ,0);
+
+			ComboRepresentantes();
+
+			return View(new List<ClienteModel>());
+		}
+
+		[HttpPost]
+		public IActionResult Pesquisar(string NomePesquisa, string EmailPesquisa, int RepresentanteId)
+		{
+			var listaClientes = clienteRepository.FindByNomeAndEmailAndRep(NomePesquisa, EmailPesquisa, RepresentanteId);
+			return View("Index", listaClientes);
 		}
 
 		[HttpGet]
 		public IActionResult Novo()
 		{
-			var listaRepresentantes = representanteRepository.FindAll();
-			ViewBag.Representantes = listaRepresentantes;
+			ComboRepresentantes();
 
-            return View(new ClienteModel());
+			return View(new ClienteModel());
 			//return Content("Fiap ASP.NET 4");
 			//return RedirectToAction("Index");
 		}
@@ -48,10 +61,9 @@ namespace Fiap.Web.AspNet4.Controllers
 			}
 			else
 			{
-                var listaRepresentantes = representanteRepository.FindAll();
-                ViewBag.Representantes = listaRepresentantes;
+				ComboRepresentantes();
 
-                return View(clienteModel);
+				return View(clienteModel);
 			}
 		}
 

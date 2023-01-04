@@ -17,11 +17,82 @@ namespace Fiap.Web.AspNet4.Repository
         {
             //return dataContext.Clientes.ToList<ClienteModel>();
 
-            return dataContext
-                .Clientes // SELECT * FROM CLIENTES
-                .Include(r => r.Representante) // INNER JOIN
-                .OrderBy(c => c.Nome)
-                .ToList<ClienteModel>();
+            var listaClientes =  dataContext
+                                    .Clientes // SELECT * FROM CLIENTES
+                                        .Include(r => r.Representante) // INNER JOIN
+                                            .ToList<ClienteModel>();
+
+            return listaClientes == null ? new List<ClienteModel>() : listaClientes;
+        }
+
+        public List<ClienteModel> FindAllOrderByNomeAsc()
+        {
+            //return dataContext.Clientes.ToList<ClienteModel>();
+
+            var listaClientes = dataContext
+                                    .Clientes // SELECT * FROM CLIENTES
+                                        .Include(r => r.Representante) // INNER JOIN
+                                            .OrderBy(c => c.Nome)
+                                                .ToList<ClienteModel>();
+
+            return listaClientes == null ? new List<ClienteModel>() : listaClientes;
+        }
+
+        public List<ClienteModel> FindAllOrderByNomeDesc()
+        {
+            //return dataContext.Clientes.ToList<ClienteModel>();
+
+            var listaClientes = dataContext
+                                    .Clientes // SELECT * FROM CLIENTES
+                                        .Include(r => r.Representante) // INNER JOIN
+                                            .OrderByDescending(c => c.Nome)
+                                                .ToList<ClienteModel>();
+
+            return listaClientes == null ? new List<ClienteModel>() : listaClientes;
+        }
+
+        public List<ClienteModel> FindByNome(string nomeParcial)
+        {
+            //return dataContext.Clientes.ToList<ClienteModel>();
+
+            var listaClientes = dataContext
+                                    .Clientes // SELECT * FROM CLIENTES
+                                        .Include(r => r.Representante) // INNER JOIN
+                                        .Where(c => c.Nome.Contains(nomeParcial))
+                                        .OrderByDescending(c => c.Nome)
+                                        .ToList<ClienteModel>();
+
+            return listaClientes == null ? new List<ClienteModel>() : listaClientes;
+        }
+
+        public List<ClienteModel> FindByNomeAndEmail(string nomeParcial, string emailParcial)
+        {
+            //return dataContext.Clientes.ToList<ClienteModel>();
+
+            var listaClientes = dataContext
+                                    .Clientes // SELECT * FROM CLIENTES
+                                        .Include(r => r.Representante) // INNER JOIN
+                                        .Where(c => c.Nome.Contains(nomeParcial) && c.Email.Contains(emailParcial))
+                                        .OrderByDescending(c => c.Nome)
+                                        .ToList<ClienteModel>();
+
+            return listaClientes == null ? new List<ClienteModel>() : listaClientes;
+        }
+
+        public List<ClienteModel> FindByNomeAndEmailAndRep(string nomeParcial, string emailParcial, int? repId)
+        {
+            //return dataContext.Clientes.ToList<ClienteModel>();
+
+            var listaClientes = dataContext
+                                    .Clientes // SELECT * FROM CLIENTES
+                                        .Include(r => r.Representante) // INNER JOIN
+                                        .Where(c => (String.IsNullOrEmpty(nomeParcial) || c.Nome.Contains(nomeParcial)) &&
+                                                    (String.IsNullOrEmpty(emailParcial) || c.Email.Contains(emailParcial)) &&
+                                                    (0 == repId || c.RepresentanteId == repId))
+                                        .OrderByDescending(c => c.Nome)
+                                        .ToList<ClienteModel>();
+
+            return listaClientes == null ? new List<ClienteModel>() : listaClientes;
         }
 
         public ClienteModel FindById(int id)
