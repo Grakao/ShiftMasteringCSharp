@@ -8,16 +8,17 @@ using Microsoft.EntityFrameworkCore;
 using Fiap.Web.AspNet4.Data;
 using Fiap.Web.AspNet4.Models;
 using Fiap.Web.AspNet4.Repository;
+using Fiap.Web.AspNet4.Repository.Interface;
 
 namespace Fiap.Web.AspNet4.Controllers
 {
     public class GerenteController : Controller
     {
-        private readonly GerenteRepository gerenteRepository;
+        private readonly IGerenteRepository gerenteRepository;
 
-        public GerenteController(DataContext context)
+        public GerenteController(IGerenteRepository _gerenteRepository)
         {
-            gerenteRepository = new GerenteRepository(context);
+            gerenteRepository = _gerenteRepository;
         }
 
         // GET: Gerente

@@ -7,17 +7,17 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Fiap.Web.AspNet4.Data;
 using Fiap.Web.AspNet4.Models;
-using Fiap.Web.AspNet4.Repository;
+using Fiap.Web.AspNet4.Repository.Interface;
 
 namespace Fiap.Web.AspNet4.Controllers
 {
 	public class RepresentanteController : Controller
 	{
-        private readonly RepresentanteRepository representanteRepository;
+        private readonly IRepresentanteRepository representanteRepository;
 
-        public RepresentanteController(DataContext context)
+        public RepresentanteController(IRepresentanteRepository _representanteRepository)
         {
-            representanteRepository = new RepresentanteRepository(context);
+            representanteRepository = _representanteRepository;
         }
 
         // GET: RepresentanteModel

@@ -1,10 +1,11 @@
 ﻿using Fiap.Web.AspNet4.Data;
 using Fiap.Web.AspNet4.Models;
+using Fiap.Web.AspNet4.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 
 namespace Fiap.Web.AspNet4.Repository
 {
-    public class GerenteRepository
+    public class GerenteRepository : IGerenteRepository
     {
         private readonly DataContext dataContext;
 
