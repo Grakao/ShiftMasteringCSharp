@@ -34,9 +34,12 @@ namespace Fiap.Web.AspNet4.Controllers
 		[HttpPost]
 		public IActionResult Pesquisar(string NomePesquisa, string EmailPesquisa, int RepresentanteId)
 		{
-			var listaClientes = clienteRepository.FindByNomeAndEmailAndRep(NomePesquisa, EmailPesquisa, RepresentanteId);
-			return View("Index", listaClientes);
-		}
+            ComboRepresentantes();
+
+            var listaClientes = clienteRepository.FindByNomeAndEmailAndRep(NomePesquisa, EmailPesquisa, RepresentanteId);
+            
+            return View("Index", listaClientes);           
+        }
 
 		[HttpGet]
 		public IActionResult Novo()
