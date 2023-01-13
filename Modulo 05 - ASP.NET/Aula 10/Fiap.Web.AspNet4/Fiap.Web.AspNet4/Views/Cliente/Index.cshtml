@@ -1,0 +1,42 @@
+﻿@model IList<ClienteModel>
+
+@{
+}
+
+<h1>Clientes</h1>
+
+@if (! String.IsNullOrEmpty ( (String) TempData["Mensagem"]) )
+{
+	<div class="alert alert-warning" role="alert">@TempData["Mensagem"]</div>
+}
+
+<p class="toolbar">
+	<a class="create btn btn-dark" asp-controller="Cliente" asp-action="Novo">Novo Cliente</a>
+</p>
+
+<div class="jumbotron">    
+	<form asp-action="Pesquisar">
+		<div class="form-group">
+			<label class="control-label">Pesquisar o Nome</label>
+			<input class="form-control col-5" name="NomePesquisa" />
+		</div>
+		<div class="form-group">
+			<label class="control-label">Pesquisar Email</label>
+			<input class="form-control col-5" name="EmailPesquisa" />
+		</div>
+		<div class="form-group">
+			<label class="control-label">Pesquisar Representante</label>
+			<select class="form-control col-5" name="RepresentanteId" asp-items="@ViewBag.representantes">
+				<option value="">Selecione</option>
+			</select>
+		</div>
+		<button type="submit" class="btn btn-primary btn-lg">Buscar</button>
+	</form>
+</div>
+<br />
+<br />
+
+@if (Model.Count() > 0)
+{
+	<partial name="_ClienteItem" model="Model" />
+}
