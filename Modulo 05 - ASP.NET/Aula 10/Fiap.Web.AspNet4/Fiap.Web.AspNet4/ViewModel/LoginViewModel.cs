@@ -16,7 +16,6 @@ namespace Fiap.Web.AspNet4.ViewModel
 		public string? UsuarioEmail { get; set; }
 
 		[Required]
-		[EmailAddress]
 		[Display(Name = "Senha")]
 		[DataType(DataType.Password)]
 		[MaxLength(12, ErrorMessage = "O tamanho máximo é de 12 caracteres!")]

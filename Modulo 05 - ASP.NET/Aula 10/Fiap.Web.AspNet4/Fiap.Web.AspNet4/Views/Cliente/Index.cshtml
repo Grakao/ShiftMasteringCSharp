@@ -1,7 +1,4 @@
-﻿@model IList<ClienteModel>
-
-@{
-}
+﻿@model Fiap.Web.AspNet4.ViewModel.ClientePesquisaViewModel
 
 <h1>Clientes</h1>
 
@@ -16,17 +13,17 @@
 
 <div class="jumbotron">    
 	<form asp-action="Pesquisar">
-		<div class="form-group">
-			<label class="control-label">Pesquisar o Nome</label>
-			<input class="form-control col-5" name="NomePesquisa" />
+		<div class="form-group"> 
+			<label class="control-label" asp-for="ClienteNome"></label>
+			<input class="form-control col-5" asp-for="ClienteNome" />
 		</div>
 		<div class="form-group">
-			<label class="control-label">Pesquisar Email</label>
-			<input class="form-control col-5" name="EmailPesquisa" />
+			<label class="control-label" asp-for="ClienteEmail"></label>
+			<input class="form-control col-5" asp-for="ClienteEmail" />
 		</div>
 		<div class="form-group">
 			<label class="control-label">Pesquisar Representante</label>
-			<select class="form-control col-5" name="RepresentanteId" asp-items="@ViewBag.representantes">
+			<select class="form-control col-5" asp-for="RepresentanteId" asp-items="@Model.Representantes">
 				<option value="">Selecione</option>
 			</select>
 		</div>
@@ -35,8 +32,3 @@
 </div>
 <br />
 <br />
-
-@if (Model.Count() > 0)
-{
-	<partial name="_ClienteItem" model="Model" />
-}

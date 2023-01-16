@@ -1,4 +1,6 @@
-﻿using Fiap.Web.AspNet4.Repository.Interface;
+﻿using AutoMapper;
+using Fiap.Web.AspNet4.Models;
+using Fiap.Web.AspNet4.Repository.Interface;
 using Fiap.Web.AspNet4.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,10 +9,12 @@ namespace Fiap.Web.AspNet4.Controllers
 	public class LoginController : Controller
 	{
 		private readonly IUsuarioRepository usuarioRepository;
+		private readonly IMapper mapper;
 
-		public LoginController()
+		public LoginController(IUsuarioRepository _usuarioRepository, IMapper _mapper)
 		{
-
+			usuarioRepository = _usuarioRepository;
+			mapper = _mapper;
 		}
 
 		public IActionResult Index()
@@ -20,10 +24,22 @@ namespace Fiap.Web.AspNet4.Controllers
 
 		public IActionResult Login(LoginViewModel loginViewModel)
 		{
+			//var usuarioModel = new UsuarioModel();
+			//usuarioModel.UsuarioEmail = loginViewModel.UsuarioEmail;
+			//usuarioModel.UsuarioSenha = loginViewModel.UsuarioSenha;
 
+			UsuarioModel usuarioModel = mapper.Map<UsuarioModel>(loginViewModel);
 
+			var usuarioRetorno = usuarioRepository.Login(usuarioModel);
 
-			return RedirectToAction("Index", "Home");
+			if (usuarioRetorno != null && usuarioRetorno .UsuarioId != 0)
+			{
+				return RedirectToAction("Index", "Home");
+			}
+			else
+			{
+				return View("Index");
+			}		
 		}
 	}
 }
