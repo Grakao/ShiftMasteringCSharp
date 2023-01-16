@@ -4,6 +4,6 @@ namespace Fiap.Web.AspNet4.Repository.Interface
 {
 	public interface IUsuarioRepository
 	{
-		public UsuarioModel Login(string username, string password);
+		public UsuarioModel Login(UsuarioModel usuarioModel);
 	}
 }
